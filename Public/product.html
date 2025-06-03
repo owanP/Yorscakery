@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="topnav">
+        <div class="nav-container">
+            <a href="index.html">Home</a>
+            <a href="product.html" class="active">Product</a>
+            <a href="about.html">About</a>
+           <a href="customorder.html">Custom Order</a>            
+        </div>
+    </nav>
+
+<!--Filter Section-->
+<div class="controls-container">
+  <div class="filters">
+    <div class="filter-section">
+      <div class="category-buttons">
+        <button class="category-btn active" data-category="">All Products</button>
+        <button class="category-btn" data-category="Cake">Cake</button>
+        <button class="category-btn" data-category="Dry Cake">Dry Cake</button>
+      </div>
+    </div>
+  </div>
+
+
+<div id="product-list" class="product-grid"></div>
+
+<script src="script.js"></script>
+</body>
+
+</html>
