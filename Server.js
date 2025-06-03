@@ -25,14 +25,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // API Routes
 app.get('/api/products', (req, res) => {
-  let sql = 'SELECT * FROM product'; 
+  let sql = 'SELECT * FROM product';
   const params = [];
-  
+  const conditions = [];
+
   if (req.query.category) {
-    sql += ' WHERE category = ?';
+    conditions.push('Category = ?'); 
     params.push(req.query.category);
   }
-  
+
+  if (req.query.search) {
+    conditions.push('name LIKE ?');
+    params.push(`%${req.query.search}%`);
+  }
+
+  if (conditions.length > 0) {
+    sql += ' WHERE ' + conditions.join(' AND ');
+  }
+
   db.query(sql, params, (err, results) => {
     if (err) {
       console.error('MySQL Error:', err);
@@ -41,7 +51,6 @@ app.get('/api/products', (req, res) => {
     res.json(results);
   });
 });
-
 
 
 // Start server
