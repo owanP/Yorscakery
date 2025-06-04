@@ -11,13 +11,17 @@
         <div class="nav-container">
             <a href="index.html">Home</a>
             <a href="product.html" class="active">Product</a>
-            <a href="about.html">About</a>
-           <a href="customorder.html">Custom Order</a>            
+            <a href="about.html">About</a>       
         </div>
     </nav>
 
 <!--Filter Section-->
 <div class="controls-container">
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Search products..." class="search-input">
+    <button id="search-btn" class="search-btn">Search</button>
+  </div>
+
   <div class="filters">
     <div class="filter-section">
       <div class="category-buttons">
@@ -27,11 +31,16 @@
       </div>
     </div>
   </div>
-
+</div>
 
 <div id="product-list" class="product-grid"></div>
 
 <script src="script.js"></script>
 </body>
+
+<footer class="site-footer">
+    <p>&copy; 2024  YORSCAKERY ALL RIGHTS RESERVED</p>
+</footer>
+
 
 </html>

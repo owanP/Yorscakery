@@ -7,34 +7,38 @@ function formatRupiah(number) {
   }).format(number);
 }
 
-// Track current category state
-let currentCategory = '';
+// Debounce function to limit rapid API calls
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}
 
-// Highlight the active category button
+// Track current filter states
+let currentCategory = '';
+let currentSearchTerm = '';
+
+// Highlight active category button
 function setActiveButton(category) {
   document.querySelectorAll('.category-btn').forEach(btn => {
-    const isActive = btn.getAttribute('data-category') === category;
-    btn.classList.toggle('active', isActive);
+    btn.classList.toggle('active', btn.dataset.category === category);
   });
 }
 
-// Fetch products from backend API
-function fetchProducts(category = '') {
-  let url = '/api/products';
-  if (category) {
-    url += `?category=${encodeURIComponent(category)}`;
-  }
+// Fetch products with current filters
+function fetchProducts() {
+  const queryParams = new URLSearchParams();
+  
+  if (currentCategory) queryParams.append('category', currentCategory);
+  if (currentSearchTerm) queryParams.append('search', currentSearchTerm);
 
-  fetch(url)
+  fetch(`/api/products?${queryParams.toString()}`)
     .then(res => res.json())
     .then(products => {
       const list = document.getElementById('product-list');
-      list.innerHTML = ''; // Clear current display
-
-      if (products.length === 0) {
-        list.innerHTML = '<p>No products found.</p>';
-        return;
-      }
+      list.innerHTML = products.length ? '' : '<p>Tidak ada produk yang ditemukan.</p>';
 
       products.forEach(p => {
         const card = document.createElement('div');
@@ -46,21 +50,39 @@ function fetchProducts(category = '') {
         `;
         list.appendChild(card);
       });
-
-      setActiveButton(category);
     })
-    .catch(err => {
-      console.error('Failed to load products:', err);
-    });
+    .catch(err => console.error('Failed to load products:', err));
 }
 
-// Add click event listeners to category buttons
-document.querySelectorAll('.category-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    currentCategory = btn.getAttribute('data-category');
-    fetchProducts(currentCategory);
+// Initialize event listeners
+function initEventListeners() {
+  // Category buttons
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentCategory = btn.dataset.category;
+      setActiveButton(currentCategory);
+      fetchProducts();
+    });
   });
-});
 
-// Initial product load
-fetchProducts();
+  // Search input with debounce
+  const searchInput = document.getElementById('search-input');
+  const updateSearch = debounce(() => {
+    currentSearchTerm = searchInput.value.trim();
+    fetchProducts();
+  });
+
+  searchInput.addEventListener('input', updateSearch);
+  
+  // Optional: Keep search button if desired
+  document.getElementById('search-btn')?.addEventListener('click', () => {
+    currentSearchTerm = searchInput.value.trim();
+    fetchProducts();
+  });
+}
+
+// Initial load
+document.addEventListener('DOMContentLoaded', () => {
+  initEventListeners();
+  fetchProducts();
+});

@@ -1,77 +1,100 @@
 /* Basic CSS styles */
-
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: Crimson text, serif;
-    background-color: #e5e3e3;
-    color: #333;
-    margin: 0;
-    padding: 0;
+  font-family: Crimson text, serif;
+  background-color: #e5e3e3;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
 h1, h2, h3 {
-    color: #333;
+  color: #333;
 }
 
 a {
-    color: #007acc;
-    text-decoration: none;
+  color: #007acc;
+  text-decoration: none;
 }
 
 /* Header styling */
 .site-header {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #000000 ;
+  text-align: center;
+  padding: 20px 0;
+  background-color: #000000;
+}
+
+.nav:hover {
+  opacity: 0.8;
 }
 
 /* Navigation bar */
 .topnav {
-    background-color: #eaceb5;
+  background-color: #010101;
+  padding: 10px 0;
+  width: 100%;
 }
 
-/* Container to center nav items */
 .nav-container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-/* Navigation links */
+/* Navigation links container */
+.nav-links {
+  display: flex;
+  gap: 10px;
+  margin: 0 auto;
+  transform: none; 
+  position: static;
+}
+
+/* Navigation link items */
 .topnav a {
-    float: none;
-    display: inline-block;
-    color: black ;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
+  color: lightgray;
+  text-align: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 17px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+  color: #B59410;
 }
 
 .topnav a.active {
-    background-color: brown;
-    color: white;
+  color: #B59410;
 }
+
+/* Active link underline */
+.topnav a.active:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  width: 70%;
+  height: 3px;
+  background-color: #B59410;
+  border-radius: 2px;
+}
+
 .container {
-    padding: 40px;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.6;
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
-
-
-
 
 /* Product Page styling */
-/* Category Button styling */
-/* Center the entire filters section */
 .filters {
   display: flex;
   justify-content: center;
@@ -85,7 +108,7 @@ a {
   color: #333;
 }
 
-/* Center the button  */
+/* Center the button */
 .category-buttons {
   display: flex;
   gap: 12px;
@@ -93,7 +116,7 @@ a {
   justify-content: center;
 }
 
-/* Style  buttons */
+/* Style buttons */
 .controls-container {
   display: flex;
   justify-content: space-between;
@@ -123,10 +146,51 @@ a {
 
 .category-btn.active,
 .category-btn:hover {
-  background-color: brown;
+  background-color: #B59410;
   color: #fff;
 }
 
+/* Search Bar Styles */
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-btn {
+  background-color: #B59410;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.search-btn:hover {
+  background-color: #8b4513;
+}
+
+/* Adjust controls container for search bar */
+.controls-container {
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* product style */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -155,4 +219,13 @@ a {
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 10px;
+}
+
+/* Footer styles */
+.site-footer {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #010101;
+  color: #f2f2f2;
+  margin-top: 40px;
 }
