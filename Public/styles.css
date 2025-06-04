@@ -167,22 +167,6 @@ a {
   font-size: 14px;
   outline: none;
 }
-
-.search-btn {
-  background-color: #B59410;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s ease;
-}
-
-.search-btn:hover {
-  background-color: #8b4513;
-}
-
 /* Adjust controls container for search bar */
 .controls-container {
   flex-direction: column;
