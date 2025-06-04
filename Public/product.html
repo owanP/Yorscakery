@@ -7,19 +7,25 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="topnav">
-        <div class="nav-container">
+<nav class="topnav">
+    <div class="nav-container">
+        <a href="index.html" class="logo-container">
+            <img src="images/logo.png" alt="Yorscakery Logo" class="nav-logo">
+        </a>
+        <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="product.html" class="active">Product</a>
-            <a href="about.html">About</a>       
+            <a href="about.html">About</a>
+            <a href="location.html".html>Location</a>
         </div>
-    </nav>
+    </div>
+</nav>
+
 
 <!--Filter Section-->
 <div class="controls-container">
   <div class="search-container">
-    <input type="text" id="search-input" placeholder="Search products..." class="search-input">
-    <button id="search-btn" class="search-btn">Search</button>
+    <input type="text" id="search-input" placeholder="🔍︎ Search products..." class="search-input">
   </div>
 
   <div class="filters">
@@ -28,10 +34,15 @@
         <button class="category-btn active" data-category="">All Products</button>
         <button class="category-btn" data-category="Cake">Cake</button>
         <button class="category-btn" data-category="Dry Cake">Dry Cake</button>
+
+        
       </div>
     </div>
   </div>
 </div>
+
+
+
 
 <div id="product-list" class="product-grid"></div>
 

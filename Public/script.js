@@ -7,6 +7,10 @@ function formatRupiah(number) {
   }).format(number);
 }
 
+// Track current filter states
+let currentCategory = '';
+let currentSearchTerm = '';
+
 // Debounce function to limit rapid API calls
 function debounce(func, timeout = 300) {
   let timer;
@@ -15,10 +19,6 @@ function debounce(func, timeout = 300) {
     timer = setTimeout(() => { func.apply(this, args); }, timeout);
   };
 }
-
-// Track current filter states
-let currentCategory = '';
-let currentSearchTerm = '';
 
 // Highlight active category button
 function setActiveButton(category) {
@@ -35,31 +35,36 @@ function fetchProducts() {
   if (currentSearchTerm) queryParams.append('search', currentSearchTerm);
 
   fetch(`/api/products?${queryParams.toString()}`)
-    .then(res => res.json())
+    .then(response => response.json())
     .then(products => {
-      const list = document.getElementById('product-list');
-      list.innerHTML = products.length ? '' : '<p>Tidak ada produk yang ditemukan.</p>';
+      const productList = document.getElementById('product-list');
+      productList.innerHTML = '';
 
-      products.forEach(p => {
+      if (products.length === 0) {
+        productList.innerHTML = '<p class="no-products">Tidak ada produk yang ditemukan.</p>';
+        return;
+      }
+
+      products.forEach(product => {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
-          <img src="${p.image_url}" alt="${p.name}" class="product-image" />
-          <h4>${p.name}</h4>
-          <p>${formatRupiah(p.price)}</p>
+          <img src="${product.image_url}" alt="${product.name}" class="product-image">
+          <h4>${product.name}</h4>
+          <p>${formatRupiah(product.price)}</p>
         `;
-        list.appendChild(card);
+        productList.appendChild(card);
       });
     })
-    .catch(err => console.error('Failed to load products:', err));
+    .catch(error => console.error('Error loading products:', error));
 }
 
 // Initialize event listeners
-function initEventListeners() {
-  // Category buttons
-  document.querySelectorAll('.category-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentCategory = btn.dataset.category;
+function init() {
+  // Category filter buttons
+  document.querySelectorAll('.category-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      currentCategory = button.dataset.category;
       setActiveButton(currentCategory);
       fetchProducts();
     });
@@ -67,22 +72,16 @@ function initEventListeners() {
 
   // Search input with debounce
   const searchInput = document.getElementById('search-input');
-  const updateSearch = debounce(() => {
+  const handleSearch = debounce(() => {
     currentSearchTerm = searchInput.value.trim();
     fetchProducts();
   });
 
-  searchInput.addEventListener('input', updateSearch);
-  
-  // Optional: Keep search button if desired
-  document.getElementById('search-btn')?.addEventListener('click', () => {
-    currentSearchTerm = searchInput.value.trim();
-    fetchProducts();
-  });
+  searchInput.addEventListener('input', handleSearch);
 }
 
-// Initial load
+// Start everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  initEventListeners();
+  init();
   fetchProducts();
 });
