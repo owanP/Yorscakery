@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2025 at 04:07 AM
+-- Generation Time: Jun 07, 2025 at 04:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -46,7 +46,7 @@ INSERT INTO `product` (`id`, `name`, `Category`, `price`, `image_url`) VALUES
 (4, 'Khaliat Nahl Mini', 'Cake', 20000, 'images/4.jpg'),
 (5, 'Mousse Cake Magnum Large', 'Cake', 188000, 'images/5.jpg'),
 (6, 'Roti Keset dengan Toping Melimpah', 'Dry Cake', 25000, 'images/6.jpg'),
-(7, 'Pandan Cake', 'Dry Cake', 25000, 'images/7.jpg'),
+(7, 'Pandan Cake', 'Cake', 25000, 'images/7.jpg'),
 (8, 'Red Velvet Cheesecake Medium', 'Cake', 130000, 'images/8.jpg'),
 (9, 'Fudgy Brownies Choco X Matcha (10pcs)', 'Dry Cake', 40000, 'images/9.jpg'),
 (10, 'Burn Cheese Cake', 'Cake', 25000, 'images/10.jpg'),
